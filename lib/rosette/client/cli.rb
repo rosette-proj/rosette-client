@@ -48,7 +48,7 @@ module Rosette
       end
 
       def const_name(name)
-        name.downcase.sub(/\A(\w)/) { $1.upcase } + 'Command'
+        name.downcase.gsub(/(\A\w|_\w)/) { $1.sub('_', '').upcase } + 'Command'
       end
     end
 
