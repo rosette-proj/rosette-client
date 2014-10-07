@@ -8,6 +8,7 @@ module Rosette
       autoload :ShowCommand,     'rosette/client/commands/show_command'
       autoload :CommitCommand,   'rosette/client/commands/commit_command'
       autoload :SnapshotCommand, 'rosette/client/commands/snapshot_command'
+      autoload :RepoSnapshotCommand, 'rosette/client/commands/repo_snapshot_command'
 
       class Command
         attr_reader :api, :terminal, :repo

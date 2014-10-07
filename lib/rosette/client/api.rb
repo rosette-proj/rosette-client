@@ -38,6 +38,10 @@ module Rosette
         make_request(:get, 'git/snapshot.json', params)
       end
 
+      def repo_snapshot(params)
+        make_request(:get, 'git/repo_snapshot.json', params)
+      end
+
       private
 
       def base_url
