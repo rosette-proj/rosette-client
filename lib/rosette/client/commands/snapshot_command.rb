@@ -28,7 +28,7 @@ module Rosette
           )
 
           handle_error(response) do |diff|
-            print_diff(diff)
+            terminal.say(diff.inspect)
           end
         end
       end

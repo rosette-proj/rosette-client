@@ -71,7 +71,9 @@ module Rosette
               changes.each do |change|
                 str = "#{change['key']}"
 
-                if meta_key = change['meta_key'] && !meta_key.empty?
+                meta_key = change['meta_key']
+
+                unless meta_key.empty?
                   str += "(#{meta_key})"
                 end
 
