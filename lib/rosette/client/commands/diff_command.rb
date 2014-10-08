@@ -63,28 +63,41 @@ module Rosette
 
         private
 
+        def add_str_for(change)
+          str = "#{change['key']}"
+          meta_key = change['meta_key']
+
+          unless meta_key.empty?
+            str += " (#{meta_key})"
+          end
+        end
+
+        def remove_str_for(change)
+          str = "#{change.fetch('old_key', change['key'])}"
+          meta_key = change['meta_key']
+
+          unless meta_key.empty?
+            str += " (#{meta_key})"
+          end
+        end
+
         def print_diff(diff)
           group_diff_by_file(diff).each_pair do |path, states|
             terminal.say("diff --rosette a/#{path} b/#{path}", :white)
 
             states.each do |state, changes|
               changes.each do |change|
-                str = "#{change['key']}"
-
-                meta_key = change['meta_key']
-
-                unless meta_key.empty?
-                  str += "(#{meta_key})"
-                end
+                add_str = add_str_for(change)
+                remove_str = remove_str_for(change)
 
                 case state
                   when 'modified'
-                    terminal.say("- #{str}", :red)
-                    terminal.say("+ #{str}", :green)
+                    terminal.say("- #{remove_str}", :red)
+                    terminal.say("+ #{add_str}", :green)
                   when 'removed'
-                    terminal.say("- #{str}", :red)
+                    terminal.say("- #{remove_str}", :red)
                   when 'added'
-                    terminal.say("+ #{str}", :green)
+                    terminal.say("+ #{add_str}", :green)
                 end
               end
             end
