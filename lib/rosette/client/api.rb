@@ -42,6 +42,10 @@ module Rosette
         make_request(:get, 'git/repo_snapshot.json', params)
       end
 
+      def add_or_update_translation(params)
+        make_request(:get, 'translations/add_or_update.json', params)
+      end
+
       private
 
       def base_url
