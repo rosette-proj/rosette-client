@@ -23,30 +23,34 @@ module Rosette
       end
 
       def diff(params)
-        make_request(:get, 'git/diff.json', params)
+        wrap(make_request(:get, 'git/diff.json', params))
       end
 
       def show(params)
-        make_request(:get, 'git/show.json', params)
+        wrap(make_request(:get, 'git/show.json', params))
       end
 
       def commit(params)
-        make_request(:get, 'git/commit.json', params)
+        wrap(make_request(:get, 'git/commit.json', params))
       end
 
       def snapshot(params)
-        make_request(:get, 'git/snapshot.json', params)
+        wrap(make_request(:get, 'git/snapshot.json', params))
       end
 
       def repo_snapshot(params)
-        make_request(:get, 'git/repo_snapshot.json', params)
+        wrap(make_request(:get, 'git/repo_snapshot.json', params))
       end
 
       def add_or_update_translation(params)
-        make_request(:get, 'translations/add_or_update.json', params)
+        wrap(make_request(:get, 'translations/add_or_update.json', params))
       end
 
       private
+
+      def wrap(api_response)
+        Response.from_api_response(api_response)
+      end
 
       def base_url
         "http://#{host}:#{port}/#{version}"

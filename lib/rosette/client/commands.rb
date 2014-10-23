@@ -22,8 +22,8 @@ module Rosette
         protected
 
         def handle_error(response)
-          if response.include?('error')
-            puts response['error']
+          if response.error?
+            puts response.error
           else
             yield response if block_given?
           end
