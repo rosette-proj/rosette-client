@@ -14,6 +14,11 @@ module Rosette
         execute_in_repo('git symbolic-ref --short HEAD').strip
       end
 
+      def rev_parse(ref)
+        commit_id = execute_in_repo("git rev-parse #{ref}").strip
+        commit_id ? commit_id : nil
+      end
+
       private
 
       def execute_in_repo(cmd)

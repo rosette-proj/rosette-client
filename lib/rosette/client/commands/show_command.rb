@@ -8,7 +8,7 @@ module Rosette
 
       ShowCommandArgs = Struct.new(:ref) do
         def self.from_argv(argv, repo)
-          new(argv[0] || repo.get_head)
+          new(repo.rev_parse(argv[0] || repo.get_head))
         end
       end
 
@@ -29,8 +29,8 @@ module Rosette
             ref: args.ref
           )
 
-          handle_error(response) do |diff|
-            print_diff(diff)
+          handle_error(response) do |response|
+            print_diff(response.attributes)
           end
         end
       end

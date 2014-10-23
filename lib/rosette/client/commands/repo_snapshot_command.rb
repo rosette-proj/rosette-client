@@ -8,7 +8,7 @@ module Rosette
 
       RepoSnapshotCommandArgs = Struct.new(:ref) do
         def self.from_argv(argv, repo)
-          new(argv[0] || repo.get_head)
+          new(repo.rev_parse(argv[0] || repo.get_head))
         end
       end
 
@@ -27,8 +27,8 @@ module Rosette
             ref: args.ref
           )
 
-          handle_error(response) do |diff|
-            terminal.say(diff.inspect)
+          handle_error(response) do |response|
+            print_hash(response.attributes)
           end
         end
       end

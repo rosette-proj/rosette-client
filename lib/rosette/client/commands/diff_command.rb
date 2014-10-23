@@ -16,7 +16,7 @@ module Rosette
         # should probably use a parser for these args, since they're pretty complicated
         # currently no support for options like --name-only, etc
         def self.from_argv(argv, repo)
-          diff_point_ref = argv[0] || 'refs/heads/master'
+          diff_point_ref = repo.rev_parse(argv[0] || 'refs/heads/master')
           paths = []
 
           if argv[1]
@@ -27,7 +27,7 @@ module Rosette
             end
           end
 
-          head_ref ||= repo.get_head
+          head_ref ||= repo.rev_parse(repo.get_head)
 
           (2..argv.size).each do |i|
             next if argv[i] == '--'
@@ -56,8 +56,8 @@ module Rosette
             paths: args.paths.join(' ')
           )
 
-          handle_error(response) do |diff|
-            print_diff(diff)
+          handle_error(response) do |response|
+            print_diff(response.attributes)
           end
         end
 

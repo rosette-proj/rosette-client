@@ -21,9 +21,15 @@ module Rosette
 
         protected
 
+        def print_hash(hash)
+          hash.each_pair do |key, value|
+            terminal.say("#{key}: #{value}")
+          end
+        end
+
         def handle_error(response)
           if response.error?
-            puts response.error
+            terminal.say("#{response.error}: #{response.detail}")
           else
             yield response if block_given?
           end

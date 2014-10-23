@@ -8,7 +8,7 @@ module Rosette
 
       CommitCommandArgs = Struct.new(:ref) do
         def self.from_argv(argv, repo)
-          new(argv[0] || repo.get_head)
+          new(repo.rev_parse(argv[0] || repo.get_head))
         end
       end
 
@@ -29,6 +29,9 @@ module Rosette
           )
 
           handle_error(response) do
+            terminal.say("Added: #{response.added || 0}")
+            terminal.say("Removed: #{response.removed || 0}")
+            terminal.say("Modified: #{response.modified || 0}")
             terminal.say('done.')
           end
         end
