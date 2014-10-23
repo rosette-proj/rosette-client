@@ -2,7 +2,6 @@
 
 require 'rosette/client/cli'
 require 'rosette/client/repo'
-require 'rosette/client/ref'
 
 module Rosette
   module Client
