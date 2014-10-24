@@ -1,10 +1,7 @@
 #! /usr/bin/env ruby
 
 require 'rosette/client'
-require 'pry-nav'
 
-Dir.chdir('/Users/cameron/workspace/beacon') do
-  terminal = Rosette::Client::Terminal.new
-  repo = Rosette::Client::Repo.new(Dir.getwd)
-  Rosette::Client::Cli.new(terminal, repo).start(ARGV)
-end
+terminal = Rosette::Client::Terminal.new
+repo = Rosette::Client::Repo.new(Dir.getwd)
+Rosette::Client::Cli.new(terminal, repo).start(ARGV)

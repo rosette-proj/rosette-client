@@ -16,6 +16,9 @@ Gem::Specification.new do |s|
   s.add_dependency 'colorize', '~> 0.7.0'
   s.add_dependency 'json', '~> 1.8.0'
 
+  s.executables << 'git-rosette'
+  s.executables << 'git-rs'
+
   s.require_path = 'lib'
   s.files = Dir["{lib,spec}/**/*", "Gemfile", "History.txt", "README.md", "Rakefile", "rosette-client.gemspec"]
 end
