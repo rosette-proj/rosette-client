@@ -30,7 +30,9 @@ module Rosette
 
         def handle_error(response)
           if response.error?
-            terminal.say("#{response.error}: #{response.detail}")
+            terminal.say(
+              [response.error, response.detail].compact.join(': ')
+            )
           else
             yield response if block_given?
           end
