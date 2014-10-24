@@ -30,6 +30,10 @@ module Rosette
         wrap(make_request(:get, 'git/show.json', params))
       end
 
+      def status(params)
+        wrap(make_request(:get, 'git/status.json', params))
+      end
+
       def commit(params)
         wrap(make_request(:get, 'git/commit.json', params))
       end
