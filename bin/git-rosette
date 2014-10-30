@@ -4,7 +4,7 @@ require 'rosette/client'
 
 config_file = File.join(Dir.home, '.rosette/config.yml')
 
-api = Api.new(
+api = Rosette::Client::Api.new(
   if File.exist?(config_file)
     YAML.load_file(config_file)
   else
