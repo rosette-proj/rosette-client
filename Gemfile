@@ -10,5 +10,5 @@ end
 
 group :test do
   gem 'rspec'
-  gem 'rr'
+  gem 'tmp-repo'
 end

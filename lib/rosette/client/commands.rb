@@ -4,12 +4,18 @@ module Rosette
   module Client
     module Commands
 
-      autoload :DiffCommand,         'rosette/client/commands/diff_command'
-      autoload :ShowCommand,         'rosette/client/commands/show_command'
-      autoload :StatusCommand,       'rosette/client/commands/status_command'
-      autoload :CommitCommand,       'rosette/client/commands/commit_command'
-      autoload :SnapshotCommand,     'rosette/client/commands/snapshot_command'
-      autoload :RepoSnapshotCommand, 'rosette/client/commands/repo_snapshot_command'
+      autoload :DiffCommand,             'rosette/client/commands/diff_command'
+      autoload :DiffCommandArgs,         'rosette/client/commands/diff_command'
+      autoload :ShowCommand,             'rosette/client/commands/show_command'
+      autoload :ShowCommandArgs,         'rosette/client/commands/show_command'
+      autoload :StatusCommand,           'rosette/client/commands/status_command'
+      autoload :StatusCommandArgs,       'rosette/client/commands/status_command'
+      autoload :CommitCommand,           'rosette/client/commands/commit_command'
+      autoload :CommitCommandArgs,       'rosette/client/commands/commit_command'
+      autoload :SnapshotCommand,         'rosette/client/commands/snapshot_command'
+      autoload :SnapshotCommandArgs,     'rosette/client/commands/snapshot_command'
+      autoload :RepoSnapshotCommand,     'rosette/client/commands/repo_snapshot_command'
+      autoload :RepoSnapshotCommandArgs, 'rosette/client/commands/repo_snapshot_command'
 
       class Command
         attr_reader :api, :terminal, :repo
