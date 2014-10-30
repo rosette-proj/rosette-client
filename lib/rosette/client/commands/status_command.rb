@@ -30,9 +30,11 @@ module Rosette
           )
 
           handle_error(response) do |response|
-            terminal.say(
-              build_locale_table(response.locales, response.phrase_count)
-            )
+            if response.locales && response.phrase_count
+              terminal.say(
+                build_locale_table(response.locales, response.phrase_count)
+              )
+            end
           end
         end
 
