@@ -22,8 +22,6 @@ module Rosette
         !error?
       end
 
-      private
-
       def method_missing(method, *args, &block)
         if attributes.include?(method.to_s)
           attributes[method.to_s]
