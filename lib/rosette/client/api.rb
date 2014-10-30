@@ -11,7 +11,7 @@ module Rosette
 
     class Api
       DEFAULT_HOST = 'localhost'
-      DEFAULT_PORT = 9292
+      DEFAULT_PORT = 8080
       DEFAULT_VERSION = 'v1'
 
       attr_reader :host, :port, :version
