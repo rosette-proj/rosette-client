@@ -8,8 +8,8 @@ module Rosette
     class Cli
       attr_reader :api, :terminal, :repo
 
-      def initialize(terminal, repo)
-        @api = get_api
+      def initialize(terminal, api, repo)
+        @api = api
         @terminal = terminal
         @repo = repo
       end
@@ -20,25 +20,11 @@ module Rosette
         else
           terminal.say("Command '#{argv.first}' not recognized.")
         end
-      rescue ApiError => e
+      rescue Api::ApiError => e
         terminal.say("An api error occurred: #{e.message}")
       end
 
       private
-
-      def get_api
-        config = if File.exist?(config_file)
-          YAML.load_file(config_file)
-        else
-          {}
-        end
-
-        Api.new(config)
-      end
-
-      def config_file
-        @config_file ||= File.join(Dir.home, '.rosette/config.yml')
-      end
 
       def find_command_const(name)
         const = const_name(name)

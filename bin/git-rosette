@@ -2,6 +2,16 @@
 
 require 'rosette/client'
 
+config_file = File.join(Dir.home, '.rosette/config.yml')
+
+api = Api.new(
+  if File.exist?(config_file)
+    YAML.load_file(config_file)
+  else
+    {}
+  end
+)
+
 terminal = Rosette::Client::Terminal.new
 repo = Rosette::Client::Repo.new(Dir.getwd)
-Rosette::Client::Cli.new(terminal, repo).start(ARGV)
+Rosette::Client::Cli.new(terminal, api, repo).start(ARGV)
