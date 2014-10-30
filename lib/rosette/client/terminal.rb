@@ -6,8 +6,14 @@ module Rosette
   module Client
     class Terminal
 
+      attr_reader :stream
+
+      def initialize(stream = STDOUT)
+        @stream = stream
+      end
+
       def say(str, color = :none)
-        puts colorize(str, color)
+        stream.write(colorize(str, color))
       end
 
       private
