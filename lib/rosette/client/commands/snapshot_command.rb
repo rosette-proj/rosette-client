@@ -30,6 +30,7 @@ module Rosette
           handle_error(response) do |response|
             response.attributes.each do |item|
               print_hash(item)
+              terminal.say('')
             end
           end
         end
