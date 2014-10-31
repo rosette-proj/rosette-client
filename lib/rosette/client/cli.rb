@@ -20,7 +20,7 @@ module Rosette
         else
           terminal.say("Command '#{argv.first}' not recognized.")
         end
-      rescue Api::ApiError => e
+      rescue Rosette::Client::ApiError => e
         terminal.say("An api error occurred: #{e.message}")
       end
 
