@@ -14,6 +14,7 @@ module Rosette
 
       def say(str, color = :none)
         stream.write(colorize(str, color))
+        stream.write("\n")
       end
 
       private
