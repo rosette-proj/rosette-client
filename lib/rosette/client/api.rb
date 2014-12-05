@@ -91,7 +91,7 @@ module Rosette
         File.join(base_url, path, "?#{make_param_string(params)}")
       end
 
-      def make_post_url(path, params, path_params)
+      def make_post_url(path, params)
         File.join(base_url, path)
       end
 
