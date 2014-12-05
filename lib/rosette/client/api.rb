@@ -47,7 +47,7 @@ module Rosette
       end
 
       def add_or_update_translation(params)
-        wrap(make_request(:get, 'translations/add_or_update.json', params))
+        wrap(make_request(:post, 'translations/add_or_update.json', params))
       end
 
       private
