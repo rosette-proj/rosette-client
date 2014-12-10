@@ -50,6 +50,10 @@ module Rosette
         wrap(make_request(:post, 'translations/add_or_update.json', params))
       end
 
+      def export(params)
+        wrap(make_request(:get, 'translations/export.json', params))
+      end
+
       private
 
       def wrap(api_response)
