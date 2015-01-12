@@ -9,6 +9,7 @@ describe Repo do
   let(:repo) { Repo.new(base_repo.working_dir) }
 
   before(:each) do
+    add_user_to(base_repo)
     base_repo.create_file('file.txt') { |f| f.write('hello, world') }
     base_repo.add_all
     base_repo.commit('Initial commit')

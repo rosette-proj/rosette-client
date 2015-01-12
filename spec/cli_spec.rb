@@ -11,6 +11,10 @@ describe Cli do
   let(:terminal) { FakeTerminal.new }
   let(:cli) { Cli.new(terminal, api, repo) }
 
+  before(:each) do
+    add_user_to(base_repo)
+  end
+
   describe '#start' do
     it 'resolves the command into a class and executes it' do
       base_repo.create_file('file.txt') { |f| f.write('hello, world') }
