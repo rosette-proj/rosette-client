@@ -41,4 +41,9 @@ RSpec.configure do |config|
       }]
     }
   end
+
+  def add_user_to(repo)
+    repo.git('--config user.name Fake User')
+    repo.git('--config user.email fake@user.com')
+  end
 end

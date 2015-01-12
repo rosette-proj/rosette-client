@@ -15,6 +15,7 @@ describe ShowCommand do
   let(:command) { ShowCommand.new(api, terminal, repo, [commit_id]) }
 
   before(:each) do
+    add_user_to(base_repo)
     base_repo.git("remote add origin git@github.com/camertron/#{repo_name}")
     base_repo.create_file('file.txt') { |f| f.write('hello, world') }
     base_repo.add_all
