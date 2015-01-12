@@ -89,6 +89,7 @@ describe Api do
       let(:path) { 'translations' }
       let(:method) { :add_or_update_translation }
       let(:endpoint_override) { 'add_or_update' }
+      let(:verb) { :post }
       it_behaves_like 'an api endpoint'
     end
   end
