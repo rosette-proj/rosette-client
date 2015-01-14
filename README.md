@@ -47,7 +47,7 @@ Print the snapshot hash for the given ref. A snapshot is a hash of file paths to
 
 ## Requirements
 
-You've gotta be running a properly configured instance of [rosette-server](https://github.com/rosette-proj/rosette-server), but otherwise there are no external requirements.
+You've gotta be running a properly configured instance of [rosette-server](https://github.com/rosette-proj/rosette-server) to communicate with, but otherwise there are no external requirements.
 
 ## Running Tests
 
