@@ -27,7 +27,7 @@ Causes the given ref to be processed. If ref is omitted, the current `HEAD` is a
 
 `git rosette diff <ref1> [<ref2> | <path>] [-- <path1> <path2> ...]`
 
-Show the diff between two refs. If the second ref is omitted, the current `HEAD` is assumed. Separate paths from ref arguments with `--`. This command will print phrases that were added, removed, or changed between the two refs.
+Show the diff between two refs. If the second ref is omitted, the current `HEAD` is assumed. You can separate paths from ref arguments with `--` for consistency with the `git diff` command. This command will print phrases that were added, removed, or changed between the two refs.
 
 `git rosette show [<ref>]`
 
@@ -43,7 +43,7 @@ Print a snapshot of the phrases for the given ref. If ref is omitted, the curren
 
 `git rosette repo_snapshot [<ref>]`
 
-Print the snapshot hash for the given ref. A snapshot is a hash of file paths to commit ids, where each commit id represents the commit the last file changed in. If ref is omitted, the current `HEAD` is assumed.
+Print the snapshot hash for the given ref. A snapshot is a hash of file paths to commit ids, where each commit id represents the commit the file last changed in. If ref is omitted, the current `HEAD` is assumed.
 
 ## Requirements
 
