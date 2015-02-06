@@ -5,6 +5,7 @@ require 'pry-nav'
 require 'rspec'
 require 'rosette/client'
 require 'helpers/fake_terminal'
+require 'helpers/fake_writer'
 require 'tmp-repo'
 
 RSpec.configure do |config|

@@ -14,15 +14,6 @@ module Rosette
 
       # a show is really just a diff against your parent (so the inheritance makes sense)
       class StatusCommand < Command
-        attr_reader :args
-
-        def initialize(api, terminal, repo, argv)
-          @api = api
-          @terminal = terminal
-          @repo = repo
-          @args = StatusCommandArgs.from_argv(argv, repo)
-        end
-
         def execute
           response = api.status(
             repo_name: derive_repo_name,
@@ -39,6 +30,10 @@ module Rosette
         end
 
         private
+
+        def parse_args(args)
+          StatusCommandArgs.from_argv(args, repo)
+        end
 
         HEADER = ['Locale', 'Phrases', 'Translations', 'Percent']
 

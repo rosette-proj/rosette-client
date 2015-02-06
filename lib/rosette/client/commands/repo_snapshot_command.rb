@@ -14,13 +14,6 @@ module Rosette
 
       # a show is really just a diff against your parent (so the inheritance makes sense)
       class RepoSnapshotCommand < Command
-        attr_reader :args
-
-        def initialize(api, terminal, repo, argv)
-          super(api, terminal, repo)
-          @args = RepoSnapshotCommandArgs.from_argv(argv, repo)
-        end
-
         def execute
           response = api.repo_snapshot(
             repo_name: derive_repo_name,
@@ -30,6 +23,12 @@ module Rosette
           handle_error(response) do |response|
             print_hash(response.attributes)
           end
+        end
+
+        private
+
+        def parse_args(args)
+          RepoSnapshotCommandArgs.from_argv(args, repo)
         end
       end
 

@@ -10,9 +10,14 @@ describe RepoSnapshotCommand do
   let(:base_repo) { TmpRepo.new }
   let(:repo) { Repo.new(base_repo.working_dir) }
   let(:terminal) { FakeTerminal.new }
+  let(:writer) { FakeWriter.new }
   let(:repo_name) { 'my_awesome_repo' }
   let(:commit_id) { base_repo.git('rev-parse HEAD').strip }
-  let(:command) { RepoSnapshotCommand.new(api, terminal, repo, [commit_id]) }
+  let(:command) do
+    RepoSnapshotCommand.new(
+      api, terminal, writer, repo, [commit_id]
+    )
+  end
 
   before(:each) do
     add_user_to(base_repo)
@@ -32,7 +37,7 @@ describe RepoSnapshotCommand do
     it 'makes a repo_snapshot api call' do
       expect(api).to receive(:repo_snapshot)
         .with(repo_name: repo_name, ref: commit_id)
-        .and_return(Response.new({}))
+        .and_return(Response.from_api_response({}))
 
       command.execute
     end
@@ -41,7 +46,7 @@ describe RepoSnapshotCommand do
       expect(api).to receive(:repo_snapshot)
         .with(repo_name: repo_name, ref: commit_id)
         .and_return(
-          Response.new({
+          Response.from_api_response({
             'file1.txt' => 'abc123',
             'path/file2.txt' => 'def456',
             'my/awesome/file3.rb' => 'ghi789'
@@ -59,7 +64,7 @@ describe RepoSnapshotCommand do
       expect(api).to receive(:repo_snapshot)
         .with(repo_name: repo_name, ref: commit_id)
         .and_return(
-          Response.new({ 'error' => 'Jelly beans', 'file1.txt' => 'abc123' })
+          Response.from_api_response({ 'error' => 'Jelly beans', 'file1.txt' => 'abc123' })
         )
 
       command.execute

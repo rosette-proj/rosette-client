@@ -27,27 +27,35 @@ describe Api do
     let(:api) { api_class.new }
     let(:params) { { param: 'value' } }
     let(:endpoint) { method }
+    let(:response_type) { HashResponse }
 
     before(:each) do
-      url = "http://localhost:8080/v1/#{path}"
+      url = File.join('http://localhost:8080/v1', path)
 
       args = case verb
         when :get
-          ["#{url}/#{endpoint_override rescue endpoint}.json/?param=value"]
+          [File.join(url, "#{endpoint_override rescue endpoint}.json/?param=value")]
         else
-          ["#{url}/#{endpoint_override rescue endpoint}.json", params]
+          [File.join(url, "#{endpoint_override rescue endpoint}.json"), params]
       end
 
       allow(api).to receive(verb).with(*args).and_return('{"foo":"bar"}')
     end
 
     it 'wraps the response in a Response object' do
-      expect(api.send(endpoint, params)).to be_a(Response)
+      expect(api.send(endpoint, params)).to be_a(response_type)
     end
   end
 
   context 'get requests' do
     let(:verb) { :get }
+
+    describe '#locales' do
+      let(:path) { '' }
+      let(:method) { :locales }
+      let(:response_type) { ArrayResponse }
+      it_behaves_like 'an api endpoint'
+    end
 
     describe '#diff' do
       let(:path) { 'git' }

@@ -54,6 +54,10 @@ module Rosette
         wrap(make_request(:get, 'translations/export.json', params))
       end
 
+      def locales(params)
+        wrap(make_request(:get, 'locales.json', params))
+      end
+
       private
 
       def wrap(api_response)

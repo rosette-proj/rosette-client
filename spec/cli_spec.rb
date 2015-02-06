@@ -9,7 +9,8 @@ describe Cli do
   let(:base_repo) { TmpRepo.new }
   let(:repo) { Repo.new(base_repo.working_dir) }
   let(:terminal) { FakeTerminal.new }
-  let(:cli) { Cli.new(terminal, api, repo) }
+  let(:writer) { FakeWriter.new }
+  let(:cli) { Cli.new(terminal, writer, api, repo) }
 
   before(:each) do
     add_user_to(base_repo)
@@ -21,7 +22,7 @@ describe Cli do
       base_repo.add_all
       base_repo.commit('Initial commit')
 
-      expect(api).to receive(:commit).and_return(Response.new({ 'foo' => 'bar' }))
+      expect(api).to receive(:commit).and_return(Response.from_api_response({ 'foo' => 'bar' }))
       cli.start(['commit', base_repo.git('rev-parse HEAD').strip])
     end
 

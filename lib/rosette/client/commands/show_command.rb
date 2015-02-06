@@ -14,15 +14,6 @@ module Rosette
 
       # a show is really just a diff against your parent (so the inheritance makes sense)
       class ShowCommand < DiffCommand
-        attr_reader :args
-
-        def initialize(api, terminal, repo, argv)
-          @api = api
-          @terminal = terminal
-          @repo = repo
-          @args = ShowCommandArgs.from_argv(argv, repo)
-        end
-
         def execute
           response = api.show(
             repo_name: derive_repo_name,
@@ -32,6 +23,12 @@ module Rosette
           handle_error(response) do |response|
             print_diff(response.attributes)
           end
+        end
+
+        private
+
+        def parse_args(args)
+          ShowCommandArgs.from_argv(args, repo)
         end
       end
 
