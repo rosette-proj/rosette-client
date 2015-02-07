@@ -30,13 +30,13 @@ describe Api do
     let(:response_type) { HashResponse }
 
     before(:each) do
-      url = File.join('http://localhost:8080/v1', path)
+      url = Api.url_join('http://localhost:8080/v1', path)
 
       args = case verb
         when :get
-          [File.join(url, "#{endpoint_override rescue endpoint}.json/?param=value")]
+          [Api.url_join(url, "#{endpoint_override rescue endpoint}.json", '?param=value')]
         else
-          [File.join(url, "#{endpoint_override rescue endpoint}.json"), params]
+          [Api.url_join(url, "#{endpoint_override rescue endpoint}.json"), params]
       end
 
       allow(api).to receive(verb).with(*args).and_return('{"foo":"bar"}')
