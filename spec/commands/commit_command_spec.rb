@@ -10,9 +10,10 @@ describe CommitCommand do
   let(:base_repo) { TmpRepo.new }
   let(:repo) { Repo.new(base_repo.working_dir) }
   let(:terminal) { FakeTerminal.new }
+  let(:writer) { FakeWriter.new }
   let(:repo_name) { 'my_awesome_repo' }
   let(:commit_id) { base_repo.git('rev-parse HEAD').strip }
-  let(:command) { CommitCommand.new(api, terminal, repo, [commit_id]) }
+  let(:command) { CommitCommand.new(api, terminal, writer, repo, [commit_id]) }
 
   before(:each) do
     add_user_to(base_repo)
@@ -32,7 +33,7 @@ describe CommitCommand do
     it 'makes a commit api call' do
       expect(api).to receive(:commit)
         .with(repo_name: repo_name, ref: commit_id)
-        .and_return(Response.new({}))
+        .and_return(Response.from_api_response({}))
 
       command.execute
     end
@@ -41,7 +42,7 @@ describe CommitCommand do
       expect(api).to receive(:commit)
         .with(repo_name: repo_name, ref: commit_id)
         .and_return(
-          Response.new(
+          Response.from_api_response(
             { 'added' => 1, 'removed' => 2, 'modified' => 3 }
           )
         )
@@ -57,7 +58,9 @@ describe CommitCommand do
       expect(api).to receive(:commit)
         .with(repo_name: repo_name, ref: commit_id)
         .and_return(
-          Response.new({ 'error' => 'Jelly beans', 'added' => 1 })
+          Response.from_api_response(
+            'error' => 'Jelly beans', 'added' => 1
+          )
         )
 
       command.execute

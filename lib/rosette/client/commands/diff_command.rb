@@ -41,13 +41,6 @@ module Rosette
       end
 
       class DiffCommand < Command
-        attr_reader :args
-
-        def initialize(api, terminal, repo, argv)
-          super(api, terminal, repo)
-          @args = DiffCommandArgs.from_argv(argv, repo)
-        end
-
         def execute
           response = api.diff(
             repo_name: derive_repo_name,
@@ -62,6 +55,10 @@ module Rosette
         end
 
         private
+
+        def parse_args(args)
+          DiffCommandArgs.from_argv(args, repo)
+        end
 
         def add_str_for(change)
           str = "#{change['key']}"

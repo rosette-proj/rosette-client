@@ -4,11 +4,18 @@ module Rosette
   module Client
 
     class Response
-      attr_reader :attributes
-
-      def self.from_api_response(hash)
-        new(hash)
+      def self.from_api_response(hash_or_array)
+        case hash_or_array
+          when Hash
+            HashResponse.new(hash_or_array)
+          else
+            ArrayResponse.new(hash_or_array)
+        end
       end
+    end
+
+    class HashResponse
+      attr_reader :attributes
 
       def initialize(hash)
         @attributes = hash
@@ -31,6 +38,24 @@ module Rosette
       # responds to everything, returns nil for any unset attributes
       def respond_to?(method)
         true
+      end
+    end
+
+    class ArrayResponse < Array
+      def initialize(array)
+        replace(array)
+      end
+
+      def error?
+        false
+      end
+
+      def success?
+        true
+      end
+
+      def attributes
+        self
       end
     end
 

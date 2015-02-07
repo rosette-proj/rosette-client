@@ -84,8 +84,15 @@ describe 'diff' do
 
   describe DiffCommand do
     let(:api) { double }
-    let(:command) { DiffCommand.new(api, terminal, repo, [master_commit_id, new_branch_commit_id]) }
+    let(:command) do
+      DiffCommand.new(
+        api, terminal, writer, repo,
+        [master_commit_id, new_branch_commit_id]
+      )
+    end
+
     let(:terminal) { FakeTerminal.new }
+    let(:writer) { FakeWriter.new }
 
     describe '#execute' do
       it 'makes a diff api call' do
@@ -96,7 +103,7 @@ describe 'diff' do
             diff_point_ref: master_commit_id,
             paths: ''
           )
-          .and_return(Response.new({}))
+          .and_return(Response.from_api_response({}))
 
         command.execute
       end
@@ -110,7 +117,7 @@ describe 'diff' do
             paths: ''
           )
           .and_return(
-            Response.new(
+            Response.from_api_response(
               sample_diff(new_branch_commit_id)
             )
           )
@@ -136,7 +143,7 @@ describe 'diff' do
             paths: ''
           )
           .and_return(
-            Response.new({ 'error' => 'Jelly beans' }.merge(
+            Response.from_api_response({ 'error' => 'Jelly beans' }.merge(
               sample_diff(new_branch_commit_id))
             )
           )

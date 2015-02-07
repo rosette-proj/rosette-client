@@ -5,7 +5,34 @@ require 'spec_helper'
 include Rosette::Client
 
 describe Response do
-  let(:response_class) { Response }
+  describe 'from_api_response' do
+    it 'accepts a hash of attributes and returns an instance of HashResponse' do
+      response = Response.from_api_response({ 'foo' => 'bar' })
+      expect(response).to be_a(HashResponse)
+      expect(response.attributes).to eq({ 'foo' => 'bar' })
+    end
+
+    it 'accepts an array and returns an instance of ArrayResponse' do
+      response = Response.from_api_response(['foo', 'bar'])
+      expect(response).to be_a(ArrayResponse)
+      expect(response.attributes).to eq(['foo', 'bar'])
+    end
+  end
+end
+
+describe ArrayResponse do
+  let(:response_class) { ArrayResponse }
+
+  describe '#attributes' do
+    it 'returns itself' do
+      response = response_class.new(['foo', 'bar'])
+      expect(response.attributes).to eq(['foo', 'bar'])
+    end
+  end
+end
+
+describe HashResponse do
+  let(:response_class) { HashResponse }
 
   it 'responds to methods that are also keys in the attributes hash' do
     response = response_class.new({ 'hello' => 'world' })
@@ -15,14 +42,6 @@ describe Response do
   it "returns nil if the method isn't part of the attributes hash" do
     response = response_class.new({ 'hello' => 'world' })
     expect(response.nothing).to be_nil
-  end
-
-  describe 'from_api_response' do
-    it 'accepts a hash of attributes and returns an instance of Response' do
-      response = response_class.from_api_response({ 'foo' => 'bar' })
-      expect(response).to be_a(response_class)
-      expect(response.attributes).to eq({ 'foo' => 'bar' })
-    end
   end
 
   describe '#error?' do

@@ -13,13 +13,6 @@ module Rosette
       end
 
       class CommitCommand < Command
-        attr_reader :args
-
-        def initialize(api, terminal, repo, argv)
-          super(api, terminal, repo)
-          @args = CommitCommandArgs.from_argv(argv, repo)
-        end
-
         def execute
           terminal.say("Committing phrases for '#{args.ref}'...")
 
@@ -34,6 +27,12 @@ module Rosette
             terminal.say("Modified: #{response.modified || 0}")
             terminal.say('done.')
           end
+        end
+
+        private
+
+        def parse_args(args)
+          CommitCommandArgs.from_argv(args, repo)
         end
       end
 

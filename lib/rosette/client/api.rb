@@ -16,6 +16,13 @@ module Rosette
 
       attr_reader :host, :port, :version
 
+      def self.url_join(*args)
+        args
+          .map { |arg| arg.gsub(/\A\/(.*)\/\z/, '\1') }  # remove slashes
+          .reject { |arg| arg.empty? }                   # get rid of empties
+          .join('/')
+      end
+
       def initialize(options = {})
         @host = options.fetch(:host, DEFAULT_HOST)
         @port = options.fetch(:port, DEFAULT_PORT)
@@ -52,6 +59,10 @@ module Rosette
 
       def export(params)
         wrap(make_request(:get, 'translations/export.json', params))
+      end
+
+      def locales(params)
+        wrap(make_request(:get, 'locales.json', params))
       end
 
       private
@@ -92,11 +103,15 @@ module Rosette
       end
 
       def make_get_url(path, params)
-        File.join(base_url, path, "?#{make_param_string(params)}")
+        url_join(base_url, path, "?#{make_param_string(params)}")
       end
 
       def make_post_url(path, params)
-        File.join(base_url, path)
+        url_join(base_url, path)
+      end
+
+      def url_join(*args)
+        self.class.url_join(*args)
       end
 
       def post(url, params)

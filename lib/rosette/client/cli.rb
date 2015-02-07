@@ -6,17 +6,18 @@ module Rosette
   module Client
 
     class Cli
-      attr_reader :api, :terminal, :repo
+      attr_reader :api, :terminal, :writer, :repo
 
-      def initialize(terminal, api, repo)
+      def initialize(terminal, writer, api, repo)
         @api = api
         @terminal = terminal
+        @writer = writer
         @repo = repo
       end
 
       def start(argv)
         if command_const = find_command_const(argv.first)
-          command_const.new(api, terminal, repo, argv[1..-1]).execute
+          command_const.new(api, terminal, writer, repo, argv[1..-1]).execute
         else
           terminal.say("Command '#{argv.first}' not recognized.")
         end

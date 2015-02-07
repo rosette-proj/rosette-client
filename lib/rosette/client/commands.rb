@@ -16,17 +16,26 @@ module Rosette
       autoload :SnapshotCommandArgs,     'rosette/client/commands/snapshot_command'
       autoload :RepoSnapshotCommand,     'rosette/client/commands/repo_snapshot_command'
       autoload :RepoSnapshotCommandArgs, 'rosette/client/commands/repo_snapshot_command'
+      autoload :PullCommand,             'rosette/client/commands/pull_command'
+      autoload :PullCommandArgs,         'rosette/client/commands/pull_command'
 
       class Command
-        attr_reader :api, :terminal, :repo
+        attr_reader :api, :terminal, :writer, :repo, :args
 
-        def initialize(api, terminal, repo)
+        def initialize(api, terminal, writer, repo, argv)
           @api = api
           @terminal = terminal
+          @writer = writer
           @repo = repo
+          @args = parse_args(argv)
         end
 
         protected
+
+        def parse_args(args)
+          raise NotImplementedError,
+            "#{__method__} must be defined in derived classes"
+        end
 
         def print_hash(hash)
           hash.each_pair do |key, value|
