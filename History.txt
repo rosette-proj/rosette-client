@@ -5,3 +5,9 @@
 == 1.0.1
 
 * Added locales endpoint to API.
+
+== 1.0.2
+
+* Fixed bug where CLI was not constructed with correct parameters in
+  bin/git-rosette.
+* StatusCommand now prints commit status (as well as phrase status).
