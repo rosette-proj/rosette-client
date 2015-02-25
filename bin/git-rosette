@@ -14,4 +14,5 @@ api = Rosette::Client::Api.new(
 
 terminal = Rosette::Client::Terminal.new
 repo = Rosette::Client::Repo.new(Dir.getwd)
-Rosette::Client::Cli.new(terminal, api, repo).start(ARGV)
+writer = Rosette::Client::Writer
+Rosette::Client::Cli.new(terminal, writer, api, repo).start(ARGV)
