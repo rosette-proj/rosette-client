@@ -11,3 +11,8 @@
 * Fixed bug where CLI was not constructed with correct parameters in
   bin/git-rosette.
 * StatusCommand now prints commit status (as well as phrase status).
+
+== 1.0.3
+
+* Remove version constraint from json dependency.
+

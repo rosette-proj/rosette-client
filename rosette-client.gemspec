@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.has_rdoc = true
 
   s.add_dependency 'colorize', '~> 0.7.0'
-  s.add_dependency 'json', '~> 1.8.0'
+  s.add_dependency 'json'
 
   s.executables << 'git-rosette'
 
