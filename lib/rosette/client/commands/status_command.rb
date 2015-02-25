@@ -22,6 +22,7 @@ module Rosette
 
           handle_error(response) do |response|
             if response.locales && response.phrase_count
+              terminal.say("Status: #{response.status}")
               terminal.say(
                 build_locale_table(response.locales, response.phrase_count)
               )
