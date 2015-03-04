@@ -16,3 +16,6 @@
 
 * Remove version constraint from json dependency.
 
+== 1.0.4
+
+* Fix StatusCommand to handle different API output.
