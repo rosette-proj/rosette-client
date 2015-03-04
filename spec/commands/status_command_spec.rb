@@ -46,15 +46,16 @@ describe StatusCommand do
             'commit_id' => commit_id,
             'status' => 'UNTRANSLATED',
             'phrase_count' => 10,
-            'locales' => [{
-              'locale' => 'fr-FR',
-              'percent_translated' => 0.5,
-              'translated_count' => 5
-            }, {
-              'locale' => 'pt-BR',
-              'percent_translated' => 0.2,
-              'translated_count' => 2
-            }]
+            'locales' => {
+              'fr-FR' => {
+                'percent_translated' => 0.5,
+                'translated_count' => 5
+              },
+              'pt-BR' => {
+                'percent_translated' => 0.2,
+                'translated_count' => 2
+              }
+            }
           })
         )
 

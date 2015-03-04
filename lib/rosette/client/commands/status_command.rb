@@ -73,16 +73,16 @@ module Rosette
         end
 
         def build_locale_rows(locales, phrase_count)
-          [HEADER] + locales.map do |locale|
-            build_locale_table_row(locale, phrase_count)
+          [HEADER] + locales.map do |locale, locale_info|
+            build_locale_table_row(locale, locale_info, phrase_count)
           end
         end
 
-        def build_locale_table_row(locale, phrase_count)
+        def build_locale_table_row(locale, locale_info, phrase_count)
           [
-            locale['locale'], phrase_count.to_i.to_s,
-            locale['translated_count'].to_i.to_s,
-            locale['percent_translated'].to_f.to_s
+            locale, phrase_count.to_i.to_s,
+            locale_info['translated_count'].to_i.to_s,
+            locale_info['percent_translated'].to_f.to_s
           ]
         end
       end
