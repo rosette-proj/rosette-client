@@ -33,7 +33,7 @@ module Rosette
             end
           end
 
-          parser.parse(argv[1..-1])
+          parser.parse(argv)
           options[:ref] = repo.rev_parse(argv[0] || repo.get_head)
           validate_options!(options, terminal)
 
