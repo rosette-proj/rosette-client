@@ -16,6 +16,7 @@ describe PullCommand do
   let(:commit_id) { base_repo.git('rev-parse HEAD').strip }
   let(:serializer) { 'yaml/rails' }
   let(:file_pattern) { 'config/locales/%{locale.code}.yml' }
+  let(:paths) { '' }
   let(:command) do
     PullCommand.new(
       api, terminal, writer, repo, [
@@ -43,7 +44,8 @@ describe PullCommand do
       repo_name: repo_name,
       ref: commit_id,
       serializer: serializer,
-      base_64_encode: true
+      base_64_encode: true,
+      paths: paths
     }
   end
 

@@ -9,9 +9,9 @@ module Rosette
   module Client
     module Commands
 
-      PullCommandArgs = Struct.new(:ref, :file_pattern, :serializer) do
+      PullCommandArgs = Struct.new(:ref, :file_pattern, :serializer, :paths) do
         def self.from_argv(argv, repo, terminal)
-          options = {}
+          options = { paths: '' }
 
           parser = OptionParser.new do |opts|
             desc = "File pattern to use. Can contain these placeholders:\n" +
@@ -31,6 +31,13 @@ module Rosette
               serializer.strip!
               options[:serializer] = serializer.empty? ? nil : serializer
             end
+
+            desc = 'The paths to use to restrict the export to only phrases ' +
+              'found at those paths. Should be pipe-separated.'
+
+            opts.on('-p paths', '--paths paths', desc) do |path|
+              options[:paths] = path.strip
+            end
           end
 
           parser.parse(argv)
@@ -40,7 +47,8 @@ module Rosette
           new(
             options[:ref],
             options[:file_pattern],
-            options[:serializer]
+            options[:serializer],
+            options[:paths]
           )
         end
 
@@ -87,7 +95,8 @@ module Rosette
             ref: args.ref,
             locale: locale['code'],
             serializer: args.serializer,
-            base_64_encode: true
+            base_64_encode: true,
+            paths: args.paths
           })
 
           handle_error(response) do |response|

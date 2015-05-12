@@ -23,3 +23,7 @@
 == 1.0.5
 
 * Pull command now parses args correctly.
+
+== 1.0.6
+
+* Pull command now accepts the -p path argument.
