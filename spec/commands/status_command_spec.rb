@@ -44,7 +44,7 @@ describe StatusCommand do
         .and_return(
           Response.from_api_response({
             'commit_id' => commit_id,
-            'status' => 'UNTRANSLATED',
+            'status' => 'NOT_SEEN',
             'phrase_count' => 10,
             'locales' => {
               'fr-FR' => {
