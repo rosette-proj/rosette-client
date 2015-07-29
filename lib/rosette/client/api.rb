@@ -65,6 +65,10 @@ module Rosette
         wrap(make_request(:get, 'locales.json', params))
       end
 
+      def untranslated_phrases(params)
+        wrap(make_request(:get, 'untranslated_phrases.json', params))
+      end
+
       private
 
       def wrap(api_response)

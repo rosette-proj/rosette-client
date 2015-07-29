@@ -11,6 +11,10 @@ class FakeTerminal
     statements << [text, color]
   end
 
+  def all_statements
+    @statements.map(&:first)
+  end
+
   def has_said?(text_or_regex, color = nil)
     case text_or_regex
       when Regexp
